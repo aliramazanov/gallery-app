@@ -6,7 +6,7 @@ import aperitivo from "./assets/aperitivo.jpg";
 import eagle from "./assets/eagle.jpg";
 import lions from "./assets/lions.jpg";
 import obelisk from "./assets/obelisk.jpg";
-import penguins from "./assets/obelisk.jpg";
+import penguins from "./assets/penguins.jpg";
 import peru from "./assets/peru.jpg";
 import pizza from "./assets/pizza.jpg";
 import prague from "./assets/prague.jpg";
