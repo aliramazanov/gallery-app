@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import PropTypes from "prop-types";
 
@@ -70,10 +70,23 @@ const App = () => {
   const [numLoaded, setNumLoaded] = useState(0);
   const [currentImg, setCurrentImg] = useState(0);
   const [colorIndex, setColorIndex] = useState(0);
+  const [allLoaded, setAllLoaded] = useState(false); // New state to track all images loaded
 
-  const handleImageLoad = () => {
-    setNumLoaded((numLoaded) => numLoaded + 1);
-  };
+  useEffect(() => {
+    // Load all images one by one
+    const loadImage = new Image();
+    loadImage.src = images[currentImg];
+    loadImage.onload = () => {
+      setNumLoaded((numLoaded) => numLoaded + 1);
+    };
+  }, [currentImg]);
+
+  useEffect(() => {
+    // When all images are loaded, setAllLoaded to true
+    if (numLoaded === images.length) {
+      setAllLoaded(true);
+    }
+  }, [numLoaded]);
 
   const changeImage = () => {
     const length = images.length - 1;
@@ -103,17 +116,25 @@ const App = () => {
       </header>
 
       <figure>
-        <Loading calcWidth={(numLoaded / images.length) * 100} />
+        {!allLoaded && ( // Show the progress bar until all images are loaded
+          <div className="images-loading">
+            <label htmlFor="images-loaded">Images are loading...</label>
+            <progress
+              max="100"
+              value={(numLoaded / images.length) * 100}
+            ></progress>
+          </div>
+        )}
         <figcaption>
           {currentImg + 1} / {images.length}
         </figcaption>
-        {images.map((imageSeq) => (
+        {images.map((imageSeq, index) => (
           <img
             key={imageSeq}
-            src={images[currentImg]}
+            src={imageSeq}
             onClick={changeImage}
-            onLoad={handleImageLoad}
-            alt="images"
+            alt={`Image ${index + 1}`}
+            style={{ display: index === currentImg ? "inline" : "none" }}
           />
         ))}
       </figure>
