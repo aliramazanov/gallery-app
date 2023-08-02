@@ -105,7 +105,7 @@ label {
 }
 
 progress[value]::-webkit-progress-bar {
-  background: white;
+  background: #89abe3ff;
 }
 
 progress[value]::-webkit-progress-value {
