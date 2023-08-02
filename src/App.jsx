@@ -88,6 +88,16 @@ const App = () => {
     }
   }, [numLoaded]);
 
+  useEffect(() => {
+    // When all images are loaded, hide the progress bar after a short delay
+    if (allLoaded) {
+      const hideProgressDelay = setTimeout(() => {
+        setAllLoaded(false);
+      }, 1000); // Delay of 1 second before hiding the progress bar
+      return () => clearTimeout(hideProgressDelay);
+    }
+  }, [allLoaded]);
+
   const changeImage = () => {
     const length = images.length - 1;
     setCurrentImg((currentImg) => (currentImg < length ? currentImg + 1 : 0));
@@ -116,7 +126,7 @@ const App = () => {
       </header>
 
       <figure>
-        {!allLoaded && ( // Show the progress bar until all images are loaded
+        {allLoaded && ( // Show the progress bar until all images are loaded
           <div className="images-loading">
             <label htmlFor="images-loaded">Images are loading...</label>
             <progress
