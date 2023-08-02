@@ -103,19 +103,16 @@ const App = () => {
       </header>
 
       <figure>
-        {numLoaded < images.length && (
-          <Loading calcWidth={(numLoaded / images.length) * 100} />
-        )}
+        <Loading calcWidth={(numLoaded / images.length) * 100} />
         <figcaption>
           {currentImg + 1} / {images.length}
         </figcaption>
-        {images.map((imageSeq, index) => (
+        {images.map((imageSeq) => (
           <img
             key={imageSeq}
             src={images[currentImg]}
             onClick={changeImage}
             onLoad={handleImageLoad}
-            style={{ opacity: currentImg === index ? 1 : 0 }}
             alt="images"
           />
         ))}
