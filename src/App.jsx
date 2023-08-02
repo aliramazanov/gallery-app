@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import PropTypes from "prop-types";
 
 import alps from "./assets/alps.jpg";
 import aperitivo from "./assets/aperitivo.jpg";
@@ -52,18 +53,27 @@ const images = [
   wall,
 ];
 
-const Loading = () => (
+const Loading = ({ calcWidth }) => (
   <aside>
     <div className="images-loading">
       <label htmlFor="images-loaded">Images are loading...</label>
-      <progress max="100" value="50"></progress>
+      <progress max="100" value={calcWidth}></progress>
     </div>
   </aside>
 );
 
+Loading.propTypes = {
+  calcWidth: PropTypes.number.isRequired,
+};
+
 const App = () => {
+  const [numLoaded, setNumLoaded] = useState(0);
   const [currentImg, setCurrentImg] = useState(0);
   const [colorIndex, setColorIndex] = useState(0);
+
+  const handleImageLoad = () => {
+    setNumLoaded((numLoaded) => numLoaded + 1);
+  };
 
   const changeImage = () => {
     const length = images.length - 1;
@@ -93,11 +103,21 @@ const App = () => {
       </header>
 
       <figure>
-        <Loading />
+        {numLoaded < images.length && (
+          <Loading calcWidth={(numLoaded / images.length) * 100} />
+        )}
         <figcaption>
           {currentImg + 1} / {images.length}
         </figcaption>
-        <img src={images[currentImg]} onClick={changeImage} alt="images" />
+        {images.map((imageSeq) => (
+          <img
+            key={imageSeq}
+            src={images[currentImg]}
+            onClick={changeImage}
+            onLoad={handleImageLoad}
+            alt="images"
+          />
+        ))}
       </figure>
     </section>
   );
