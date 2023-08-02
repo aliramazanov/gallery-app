@@ -95,10 +95,11 @@ aside {
 }
 
 progress {
-  border: 1px solid #00203fff;
+  border: 1px solid #89abe3ff;
   height: 1.2rem;
   width: 20rem;
 }
+
 label {
   font-size: 2rem;
   color: #00203fff;
