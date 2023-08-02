@@ -52,6 +52,15 @@ const images = [
   wall,
 ];
 
+const Loading = () => (
+  <aside>
+    <div className="images-loading">
+      <label htmlFor="images-loaded">Images are loading...</label>
+      <progress max="100" value="50"></progress>
+    </div>
+  </aside>
+);
+
 const App = () => {
   const [currentImg, setCurrentImg] = useState(0);
   const [colorIndex, setColorIndex] = useState(0);
@@ -82,7 +91,9 @@ const App = () => {
           by Ali Ramazanov
         </h2>
       </header>
+
       <figure>
+        <Loading />
         <figcaption>
           {currentImg + 1} / {images.length}
         </figcaption>

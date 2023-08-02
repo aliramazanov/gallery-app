@@ -66,3 +66,37 @@ img {
   position: fixed;
   width: 50%;
 }
+
+aside {
+  background: beige;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 2;
+}
+
+.images-loading {
+  display: grid;
+  row-gap: 12px;
+}
+
+progress {
+  border: 1px solid black;
+  height: 1rem;
+  width: 20rem;
+}
+
+progress[value]::-webkit-progress-bar {
+  background: white;
+}
+progress[value]::-webkit-progress-value {
+  background: #89abe3;
+}
+
+label {
+  color: black;
+  font-size: 1rem;
+}
