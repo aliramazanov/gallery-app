@@ -64,7 +64,7 @@ const Loading = ({ calculatedWidth }) => (
 const App = () => {
   const [currentImg, setCurrentImg] = useState(0);
   const [colorIndex, setColorIndex] = useState(0);
-  const [numLoaded, setNumLoaded] = useState(0);
+  const [numLoaded, setNumLoaded] = useState(1);
 
   const changeImage = () => {
     const length = images.length - 1;

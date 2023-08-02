@@ -8,25 +8,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   font-size: 62.5%;
-}
-
-section {
-  display: flex;
-  height: 100vh;
-  justify-content: space-between;
-}
-
-header {
-  margin: 0;
-  position: relative;
-  width: 50vw;
-}
-
-figure {
-  background: white;
-  margin: 0;
-  position: relative;
-  width: 50vw;
+  overflow: hidden;
 }
 
 h1 {
@@ -44,6 +26,24 @@ h2 {
   line-height: 1.2;
   margin: 0 20px 20px;
   font-weight: normal;
+}
+
+section {
+  display: flex;
+  height: 100vh;
+  justify-content: space-between;
+}
+
+header {
+  margin: 0;
+  position: relative;
+  width: 50vw;
+}
+
+figure {
+  margin: 0;
+  position: relative;
+  width: 50vw;
 }
 
 figcaption {
@@ -92,6 +92,16 @@ aside {
   grid-row-gap: 12px;
 }
 
+progress {
+  border: 1px solid #00203fff;
+  height: 1.2rem;
+  width: 20rem;
+}
+label {
+  font-size: 2rem;
+  color: #00203fff;
+}
+
 progress[value]::-webkit-progress-bar {
   background: white;
 }
@@ -100,8 +110,31 @@ progress[value]::-webkit-progress-value {
   background: #00203fff;
 }
 
-progress {
-  border: 1px solid #00203fff;
-  height: 20px;
-  width: 400px;
+@media (max-width: 800px) {
+  section {
+    flex-direction: column;
+  }
+  header {
+    width: 100vw;
+  }
+  figure {
+    flex-grow: 1;
+    width: 100vw;
+  }
+
+  figcaption {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 20px;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 80px;
+  }
+  img {
+    width: 100vw;
+  }
 }
