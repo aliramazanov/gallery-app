@@ -74,29 +74,23 @@ const App = () => {
 
   useEffect(() => {
     // Load all images one by one
-    const loadImage = new Image();
-    loadImage.src = images[currentImg];
-    loadImage.onload = () => {
-      setNumLoaded((numLoaded) => numLoaded + 1);
+    let loadedImages = 0;
+
+    const onLoadHandler = () => {
+      loadedImages++;
+      setNumLoaded(loadedImages);
+
+      if (loadedImages === images.length) {
+        setAllLoaded(true);
+      }
     };
-  }, [currentImg]);
 
-  useEffect(() => {
-    // When all images are loaded, setAllLoaded to true
-    if (numLoaded === images.length) {
-      setAllLoaded(true);
-    }
-  }, [numLoaded]);
-
-  useEffect(() => {
-    // When all images are loaded, hide the progress bar after a short delay
-    if (allLoaded) {
-      const hideProgressDelay = setTimeout(() => {
-        setAllLoaded(false);
-      }, 1000); // Delay of 1 second before hiding the progress bar
-      return () => clearTimeout(hideProgressDelay);
-    }
-  }, [allLoaded]);
+    images.forEach((image) => {
+      const img = new Image();
+      img.onload = onLoadHandler;
+      img.src = image;
+    });
+  }, []);
 
   const changeImage = () => {
     const length = images.length - 1;
@@ -125,29 +119,30 @@ const App = () => {
         </h2>
       </header>
 
-      <figure>
-        {allLoaded && ( // Show the progress bar until all images are loaded
-          <div className="images-loading">
-            <label htmlFor="images-loaded">Images are loading...</label>
-            <progress
-              max="100"
-              value={(numLoaded / images.length) * 100}
-            ></progress>
-          </div>
-        )}
-        <figcaption>
-          {currentImg + 1} / {images.length}
-        </figcaption>
-        {images.map((imageSeq, index) => (
-          <img
-            key={imageSeq}
-            src={imageSeq}
-            onClick={changeImage}
-            alt={`Image ${index + 1}`}
-            style={{ display: index === currentImg ? "inline" : "none" }}
-          />
-        ))}
-      </figure>
+      {allLoaded ? (
+        <figure>
+          <figcaption>
+            {currentImg + 1} / {images.length}
+          </figcaption>
+          {images.map((imageSeq, index) => (
+            <img
+              key={imageSeq}
+              src={imageSeq}
+              onClick={changeImage}
+              alt={`Image ${index + 1}`}
+              style={{ display: index === currentImg ? "inline" : "none" }}
+            />
+          ))}
+        </figure>
+      ) : (
+        <div className="images-loading">
+          <label htmlFor="images-loaded">Images are loading...</label>
+          <progress
+            max="100"
+            value={(numLoaded / images.length) * 100}
+          ></progress>
+        </div>
+      )}
     </section>
   );
 };
