@@ -44,6 +44,8 @@ figure {
   margin: 0;
   position: relative;
   width: 50vw;
+  display: flex;
+  justify-content: center;
 }
 
 figcaption {
@@ -117,23 +119,26 @@ progress[value]::-webkit-progress-value {
   header {
     width: 100vw;
   }
+
   figure {
     flex-grow: 1;
     width: 100vw;
   }
 
   figcaption {
-    font-size: 30px;
+    font-size: 1rem;
+    text-align: center;
   }
 
   h2 {
-    font-size: 20px;
+    font-size: 1.2rem;
     position: relative;
   }
 
   h1 {
-    font-size: 80px;
+    font-size: 5rem;
   }
+
   img {
     width: 100vw;
   }
