@@ -70,10 +70,9 @@ const App = () => {
   const [numLoaded, setNumLoaded] = useState(0);
   const [currentImg, setCurrentImg] = useState(0);
   const [colorIndex, setColorIndex] = useState(0);
-  const [allLoaded, setAllLoaded] = useState(false); // New state to track all images loaded
+  const [allLoaded, setAllLoaded] = useState(false);
 
   useEffect(() => {
-    // Load all images one by one
     let loadedImages = 0;
 
     const onLoadHandler = () => {
