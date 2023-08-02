@@ -82,7 +82,7 @@ aside {
   height: 100%;
   position: absolute;
   width: 100%;
-  background: seashell;
+  background: #89abe3ff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,11 +106,13 @@ label {
 }
 
 progress[value]::-webkit-progress-bar {
-  background: #89abe3ff;
+  background: white;
+  border-radius: 2rem;
 }
 
 progress[value]::-webkit-progress-value {
   background: #00203fff;
+  border-radius: 2rem;
 }
 
 @media (max-width: 800px) {
