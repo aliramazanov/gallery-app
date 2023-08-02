@@ -52,11 +52,11 @@ const images = [
   wall,
 ];
 
-const Loading = () => (
+const Loading = ({ calculatedWidth }) => (
   <aside>
     <div className="images-loading">
       <label htmlFor="images-loaded">Images are loading...</label>
-      <progress max="100" value="50"></progress>
+      <progress id="images-loaded" max="100" value={calculatedWidth}></progress>
     </div>
   </aside>
 );
@@ -64,10 +64,15 @@ const Loading = () => (
 const App = () => {
   const [currentImg, setCurrentImg] = useState(0);
   const [colorIndex, setColorIndex] = useState(0);
+  const [numLoaded, setNumLoaded] = useState(0);
 
   const changeImage = () => {
     const length = images.length - 1;
     setCurrentImg((currentImg) => (currentImg < length ? currentImg + 1 : 0));
+  };
+
+  const handleImageLoad = () => {
+    setNumLoaded((numLoaded) => numLoaded + 1);
   };
 
   const changeColors = () => {
@@ -93,11 +98,22 @@ const App = () => {
       </header>
 
       <figure>
-        <Loading />
+        {numLoaded < images.length && (
+          <Loading calculatedWidth={(numLoaded / images.length) * 100} />
+        )}
         <figcaption>
           {currentImg + 1} / {images.length}
         </figcaption>
-        <img src={images[currentImg]} onClick={changeImage} alt="images" />
+        {images.map((imageSeq, index) => (
+          <img
+            key={imageSeq}
+            src={imageSeq}
+            onClick={changeImage}
+            onLoad={handleImageLoad}
+            alt="images"
+            className={currentImg === index ? "display" : "hide"}
+          />
+        ))}
       </figure>
     </section>
   );

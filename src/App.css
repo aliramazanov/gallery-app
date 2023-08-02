@@ -65,4 +65,43 @@ img {
   object-fit: cover;
   position: fixed;
   width: 50%;
+  opacity: 0;
+}
+
+.display {
+  opacity: 1;
+}
+
+.hide {
+  opacity: 0;
+}
+
+aside {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  background: seashell;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.images-loading {
+  display: grid;
+  grid-row-gap: 12px;
+}
+
+progress[value]::-webkit-progress-bar {
+  background: white;
+}
+
+progress[value]::-webkit-progress-value {
+  background: #00203fff;
+}
+
+progress {
+  border: 1px solid #00203fff;
+  height: 20px;
+  width: 400px;
 }
