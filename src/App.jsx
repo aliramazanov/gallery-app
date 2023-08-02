@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
-import PropTypes from "prop-types";
 
 import alps from "./assets/alps.jpg";
 import aperitivo from "./assets/aperitivo.jpg";
@@ -53,43 +52,18 @@ const images = [
   wall,
 ];
 
-const Loading = ({ calcWidth }) => (
+const Loading = () => (
   <aside>
     <div className="images-loading">
       <label htmlFor="images-loaded">Images are loading...</label>
-      <progress max="100" value={calcWidth}></progress>
+      <progress max="100" value="50"></progress>
     </div>
   </aside>
 );
 
-Loading.propTypes = {
-  calcWidth: PropTypes.number.isRequired,
-};
-
 const App = () => {
-  const [numLoaded, setNumLoaded] = useState(0);
   const [currentImg, setCurrentImg] = useState(0);
   const [colorIndex, setColorIndex] = useState(0);
-  const [allLoaded, setAllLoaded] = useState(false);
-
-  useEffect(() => {
-    let loadedImages = 0;
-
-    const onLoadHandler = () => {
-      loadedImages++;
-      setNumLoaded(loadedImages);
-
-      if (loadedImages === images.length) {
-        setAllLoaded(true);
-      }
-    };
-
-    images.forEach((image) => {
-      const img = new Image();
-      img.onload = onLoadHandler;
-      img.src = image;
-    });
-  }, []);
 
   const changeImage = () => {
     const length = images.length - 1;
@@ -118,30 +92,13 @@ const App = () => {
         </h2>
       </header>
 
-      {allLoaded ? (
-        <figure>
-          <figcaption>
-            {currentImg + 1} / {images.length}
-          </figcaption>
-          {images.map((imageSeq, index) => (
-            <img
-              key={imageSeq}
-              src={imageSeq}
-              onClick={changeImage}
-              alt={`Image ${index + 1}`}
-              style={{ display: index === currentImg ? "inline" : "none" }}
-            />
-          ))}
-        </figure>
-      ) : (
-        <div className="images-loading">
-          <label htmlFor="images-loaded">Images are loading...</label>
-          <progress
-            max="100"
-            value={(numLoaded / images.length) * 100}
-          ></progress>
-        </div>
-      )}
+      <figure>
+        <Loading />
+        <figcaption>
+          {currentImg + 1} / {images.length}
+        </figcaption>
+        <img src={images[currentImg]} onClick={changeImage} alt="images" />
+      </figure>
     </section>
   );
 };
